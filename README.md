@@ -1,25 +1,116 @@
-Review Central – PWA Review App A Progressive Web App built with Python Flask that allows users to register, log in, post reviews, edit/delete their own reviews, and install the app as a PWA.
+Installing the PWA:
+Review Central can be installed on desktop or mobile devices for quick access.
 
-Requirements Python 3 Flask installed (pip install flask) All project files downloaded (including the templates and static folders)
+Desktop (Chrome / Edge)
+Open the application in your browser.
+Look for the “Install App” icon in the address bar.
+Click Install.
+The app will appear as a standalone window and can be launched from your Start Menu or Applications folder.
 
-How to Run the Application: Open the project folder in VS Code or another editor. Open a terminal inside the project folder.
+Mobile (Android / Chrome)
+Open the site in Chrome.
+Tap the menu (⋮).
+Select Add to Home screen.
+Confirm installation.
 
-Run the command: python app.py (If port 5000 is blocked on your computer, use python -m flask run --port 5001) Wait for Flask to start. The terminal will show something like:
+iOS (Safari)
+Open the site in Safari.
+Tap the Share icon.
+Select Add to Home Screen.
+Confirm installation.
+Once installed, the app behaves like a native application and can be launched without opening a browser.
 
-Running on http://127.0.0.1:5000 Open a web browser and go to the address shown in the terminal.
+Using the Application
 
-How to Use the Application:
+Home Page
+The home page displays:
+A welcome message
+Login/Register options
+A disabled “Add Review” button if logged out
+Category shortcuts (Games, Movies, Books)
+A preview of recent reviews
+Navigation updates automatically depending on whether you are logged in.
 
-Register Enter email, username, and password. Email must be unique. Username must be unique.
+Registering an Account
+Open the Register page.
 
-Login Log in using either email OR username, plus your password.
+Enter:
+Email
+Username
+Password
+Submit the form.
 
-Reviews Logged‑in users can: Add a review Edit their own reviews Delete their own reviews
+Requirements:
 
-Logged‑out users can: View all reviews Cannot add/edit/delete reviews
+Email must be unique
+Username must be unique
+If either is already taken, an error message will appear.
 
-Rating System Ratings support 1.0 to 10.0, with one decimal place.
+Logging In
+Open the Login page.
 
-PWA Features Installable on desktop and mobile Works offline using a service worker Manifest file included Cached assets allow basic offline functionality
+Enter:
+Email or Username
+Password
+Submit the form.
+If credentials are incorrect, an error message will be displayed.
+Once logged in, you will see:
+“Add Review” enabled
+“Logout (your username)” in the navigation
+Edit/Delete options on your own reviews
 
-Notes This version uses in‑memory storage, not SQL. Restarting the server clears all users and reviews. The GitHub repository contains all source code and version history.
+Adding a Review
+Click Add Review (only visible when logged in).
+Fill in:
+Category (Games, Movies, Books)
+Title
+Rating (1.0–10.0)
+Review text
+Submit the form.
+
+Validation:
+Rating must be between 1.0 and 10.0
+All fields are required
+If validation fails, an error message will appear.
+
+Viewing Reviews
+The All Reviews page shows every review in the system.
+You can:
+Filter by category
+Click a review to view full details
+See who posted each review
+Logged‑out users can view reviews but cannot add, edit, or delete them.
+
+Editing a Review
+Open a review you created.
+Click Edit Review.
+Update the fields.
+Submit the form.
+
+Only the original author can edit a review.
+Other users will not see the Edit button.
+
+Deleting a Review
+Open a review you created.
+Click Delete Review.
+Confirm deletion.
+
+Only the original author can delete a review.
+Other users will not see the Delete button.
+
+Offline Mode
+Review Central includes basic offline support through a service worker.
+
+When offline:
+A banner appears at the top of the screen
+“Add Review”, “Edit”, and “Delete” buttons are disabled
+Cached pages (Home, Login, Register, Reviews) still load
+The app remains installable and launchable
+When the connection returns, full functionality is restored automatically.
+
+Data Storage
+This version uses in‑memory storage, meaning:
+Data resets when the server restarts
+No SQL database is used
+This is intentional for the assessment
+A future version could use JSON or SQL for persistence.

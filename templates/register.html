@@ -1,27 +1,25 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h1>
-    {% if category %}
-        {{ category|capitalize }} Reviews
-    {% else %}
-        All Reviews
-    {% endif %}
-</h1>
+<h1>Register</h1>
 
-{% if reviews|length == 0 %}
-    <p>No reviews found.</p>
-{% else %}
-    {% for r in reviews %}
-        <div class="card">
-            <h3><a href="/review/{{ r.id }}">{{ r.title }}</a></h3>
-            <p>Category: {{ r.category|capitalize }}</p>
-            <p>Rating: {{ r.rating }}</p>
-            <p>By: {{ r.owner }}</p>
-        </div>
-    {% endfor %}
+{% if error %}
+<p style="color:red;">{{ error }}</p>
 {% endif %}
 
-<p><a href="/">Back to Home</a></p>
+<form method="POST">
+    <label>Email:</label><br>
+    <input type="email" name="email" required><br><br>
+
+    <label>Username:</label><br>
+    <input type="text" name="username" required><br><br>
+
+    <label>Password:</label><br>
+    <input type="password" name="password" required><br><br>
+
+    <button class="btn" type="submit">Register</button>
+</form>
+
+<p><a href="{{ url_for('home') }}">Back to Home</a></p>
 
 {% endblock %}
