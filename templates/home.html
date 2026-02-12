@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Welcome to Review Central</h1>
+
+{% if session.get("user") %}
+    <p>Logged in as {{ session.get("user") }} | <a href="/logout">Logout</a></p>
+{% else %}
+    <p><a href="/login">Login</a> | <a href="/register">Register</a></p>
+{% endif %}
+
+{% if session.get("user") %}
+    <a class="btn" href="/add_review" data-protected="true">Add Review</a>
+{% else %}
+    <button class="btn" disabled>Add Review (Login Required)</button>
+{% endif %}
+
+<hr>
+
+<h2>Some Reviews</h2>
+
+<h3>Games</h3>
+{% set count = 0 %}
+{% for r in reviews %}
+    {% if r.category == "games" and count < 3 %}
+        <div class="card">
+            <h4><a href="/review/{{ r.id }}">{{ r.title }}</a></h4>
+            <p>Rating: {{ r.rating|format('%.1f') }}</p>
+            <p>By: {{ r.owner }}</p>
+        </div>
+        {% set count = count + 1 %}
+    {% endif %}
+{% endfor %}
+<a class="btn" href="/reviews?category=games">View more games reviews</a>
+
+<hr>
+
+<h3>Movies</h3>
+{% set count = 0 %}
+{% for r in reviews %}
+    {% if r.category == "movies" and count < 3 %}
+        <div class="card">
+            <h4><a href="/review/{{ r.id }}">{{ r.title }}</a></h4>
+            <p>Rating: {{ r.rating|format('%.1f') }}</p>
+            <p>By: {{ r.owner }}</p>
+        </div>
+        {% set count = count + 1 %}
+    {% endif %}
+{% endfor %}
+<a class="btn" href="/reviews?category=movies">View more movies reviews</a>
+
+<hr>
+
+<h3>Books</h3>
+{% set count = 0 %}
+{% for r in reviews %}
+    {% if r.category == "books" and count < 3 %}
+        <div class="card">
+            <h4><a href="/review/{{ r.id }}">{{ r.title }}</a></h4>
+            <p>Rating: {{ r.rating|format('%.1f') }}</p>
+            <p>By: {{ r.owner }}</p>
+        </div>
+        {% set count = count + 1 %}
+    {% endif %}
+{% endfor %}
+<a class="btn" href="/reviews?category=books">View more books reviews</a>
+
+{% endblock %}

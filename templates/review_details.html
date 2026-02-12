@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>{{ review.title }}</h1>
+
+<div class="card">
+    <p>Category: {{ review.category|capitalize }}</p>
+    <p>Rating: {{ review.rating|format('%.1f') }}</p>
+    <p>{{ review.review }}</p>
+    <p>By: {{ review.owner }}</p>
+</div>
+
+{% if session.get("user") == review.owner %}
+    <a class="btn" href="/edit/{{ review.id }}" data-protected="true">Edit</a>
+<a class="btn" href="/delete/{{ review.id }}" data-protected="true">Delete</a>
+{% endif %}
+
+<p><a href="/reviews?category={{ review.category }}">Back to {{ review.category|capitalize }} Reviews</a></p>
+
+{% endblock %}

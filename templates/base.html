@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Review Central</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="manifest" href="{{ url_for('manifest') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script defer src="{{ url_for('static', filename='js/script.js') }}"></script>
+</head>
+<body>
+
+    <!-- Overlay for sidebar -->
+    <div id="sidebar-overlay"></div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar">
+        <div class="sidebar-header">
+            <h2>Review Central</h2>
+            <button id="sidebar-close">&times;</button>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('reviews') }}">All Reviews</a>
+
+            {% if session.get('user') %}
+                <a href="{{ url_for('add_review') }}">Add Review</a>
+                <a href="{{ url_for('logout') }}">Logout ({{ session.get('user') }})</a>
+            {% else %}
+                <a href="{{ url_for('login') }}">Login</a>
+                <a href="{{ url_for('register') }}">Register</a>
+            {% endif %}
+        </nav>
+    </aside>
+
+    <!-- Top Navigation Bar -->
+    <header class="topbar">
+        <div class="topbar-left">
+            <button id="sidebar-toggle" class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <a href="{{ url_for('home') }}" class="logo">Review Central</a>
+        </div>
+
+        <nav class="topbar-nav desktop-only">
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('reviews') }}">All Reviews</a>
+
+            {% if session.get('user') %}
+                <a href="{{ url_for('add_review') }}">Add Review</a>
+                <a href="{{ url_for('logout') }}">Logout ({{ session.get('user') }})</a>
+            {% else %}
+                <a href="{{ url_for('login') }}">Login</a>
+                <a href="{{ url_for('register') }}">Register</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <div id="offline-banner">You are offline. Some features are disabled.</div>
+    <!-- Main Page Content -->
+    <main class="content">
+        {% block content %}{% endblock %}
+    </main>
+<script>
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/static/js/service_worker.js");
+}
+</script>
+</body>
+</html>
