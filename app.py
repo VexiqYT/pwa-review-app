@@ -108,7 +108,10 @@ def add_review():
         rating = float(request.form["rating"])
         review_text = request.form["review"]
 
-        review_id = len(reviews_data)
+        # Per-category numbering
+        existing = [r for r in reviews_data if r["category"] == category]
+        review_id = len(existing)
+
         new_review = {
             "id": review_id,
             "category": category,
@@ -121,7 +124,7 @@ def add_review():
         reviews_data.append(new_review)
         save_json(REVIEWS_FILE, reviews_data)
 
-        return redirect(url_for("reviews"))
+        return redirect(url_for("review_details", category=category, review_id=review_id))
 
     return render_template("add_review.html")
 
@@ -134,16 +137,24 @@ def reviews():
         filtered = reviews_data
     return render_template("reviews.html", reviews=filtered, category=category)
 
-@app.route("/review/<int:review_id>")
-def review_details(review_id):
-    review = next((r for r in reviews_data if r["id"] == review_id), None)
+@app.route("/review/<category>/<int:review_id>")
+def review_details(category, review_id):
+    review = next(
+        (r for r in reviews_data 
+         if r["id"] == review_id and r["category"] == category),
+        None
+    )
     if not review:
         return "Review not found", 404
     return render_template("review_details.html", review=review)
 
-@app.route("/edit/<int:review_id>", methods=["GET", "POST"])
-def edit_review(review_id):
-    review = next((r for r in reviews_data if r["id"] == review_id), None)
+@app.route("/edit/<category>/<int:review_id>", methods=["GET", "POST"])
+def edit_review(category, review_id):
+    review = next(
+        (r for r in reviews_data 
+         if r["id"] == review_id and r["category"] == category),
+        None
+    )
     if not review:
         return "Review not found", 404
 
@@ -156,13 +167,17 @@ def edit_review(review_id):
         review["review"] = request.form["review"]
 
         save_json(REVIEWS_FILE, reviews_data)
-        return redirect(url_for("review_details", review_id=review_id))
+        return redirect(url_for("review_details", category=category, review_id=review_id))
 
     return render_template("edit_review.html", review=review)
 
-@app.route("/delete/<int:review_id>")
-def delete_review(review_id):
-    review = next((r for r in reviews_data if r["id"] == review_id), None)
+@app.route("/delete/<category>/<int:review_id>")
+def delete_review(category, review_id):
+    review = next(
+        (r for r in reviews_data 
+         if r["id"] == review_id and r["category"] == category),
+        None
+    )
     if not review:
         return "Review not found", 404
 
@@ -172,7 +187,7 @@ def delete_review(review_id):
     reviews_data.remove(review)
     save_json(REVIEWS_FILE, reviews_data)
 
-    return redirect(url_for("reviews"))
+    return redirect(url_for("reviews", category=category))
 
 @app.route('/manifest.json')
 def manifest():

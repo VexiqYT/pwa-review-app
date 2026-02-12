@@ -24,8 +24,8 @@
 {% for r in reviews %}
     {% if r.category == "games" and count < 3 %}
         <div class="card">
-            <h4><a href="/review/{{ r.id }}">{{ r.title }}</a></h4>
-            <p>Rating: {{ "%.1f"|format(r.rating) }}</p>
+            <h4><a href="/review/{{ r.category }}/{{ r.id }}">{{ r.title }}</a></h4>
+            <p>Rating: {{ r.rating|round(1) }}</p>
             <p>By: {{ r.owner }}</p>
         </div>
         {% set count = count + 1 %}
@@ -40,8 +40,8 @@
 {% for r in reviews %}
     {% if r.category == "movies" and count < 3 %}
         <div class="card">
-            <h4><a href="/review/{{ r.id }}">{{ r.title }}</a></h4>
-            <p>Rating: {{ "%.1f"|format(r.rating) }}</p>
+            <h4><a href="/review/{{ r.category }}/{{ r.id }}">{{ r.title }}</a></h4>
+            <p>Rating: {{ r.rating|round(1) }}</p>
             <p>By: {{ r.owner }}</p>
         </div>
         {% set count = count + 1 %}
@@ -56,8 +56,8 @@
 {% for r in reviews %}
     {% if r.category == "books" and count < 3 %}
         <div class="card">
-            <h4><a href="/review/{{ r.id }}">{{ r.title }}</a></h4>
-            <p>Rating: {{ "%.1f"|format(r.rating) }}</p>
+            <h4><a href="/review/{{ r.category }}/{{ r.id }}">{{ r.title }}</a></h4>
+            <p>Rating: {{ r.rating|round(1) }}</p>
             <p>By: {{ r.owner }}</p>
         </div>
         {% set count = count + 1 %}

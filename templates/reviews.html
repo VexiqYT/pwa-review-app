@@ -14,14 +14,18 @@
 {% else %}
     {% for r in reviews %}
         <div class="card">
-            <h3><a href="{{ url_for('review_details', review_id=r.id) }}">{{ r.title }}</a></h3>
+            <h3>
+                <a href="{{ url_for('review_details', category=r.category, review_id=r.id) }}">
+                    {{ r.title }}
+                </a>
+            </h3>
             <p>Category: {{ r.category|capitalize }}</p>
-            <p>Rating: {{ r.rating }}</p>
+            <p>Rating: {{ r.rating|round(1) }}</p>
             <p>By: {{ r.owner }}</p>
         </div>
     {% endfor %}
 {% endif %}
 
-<p><a href="{{ url_for('home') }}">Back to Home</a></p>
+<p><a href="/">Back to Home</a></p>
 
 {% endblock %}

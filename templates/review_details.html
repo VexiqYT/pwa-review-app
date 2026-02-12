@@ -3,16 +3,14 @@
 
 <h1>{{ review.title }}</h1>
 
-<div class="card">
-    <p>Category: {{ review.category|capitalize }}</p>
-    <p>Rating: {{ review.rating|format('%.1f') }}</p>
-    <p>{{ review.review }}</p>
-    <p>By: {{ review.owner }}</p>
-</div>
+<p><strong>Category:</strong> {{ review.category|capitalize }}</p>
+<p><strong>Rating:</strong> {{ review.rating|round(1) }}</p>
+<p><strong>Review:</strong> {{ review.review }}</p>
+<p><strong>By:</strong> {{ review.owner }}</p>
 
 {% if session.get("user") == review.owner %}
-    <a class="btn" href="/edit/{{ review.id }}" data-protected="true">Edit</a>
-<a class="btn" href="/delete/{{ review.id }}" data-protected="true">Delete</a>
+    <a class="btn" href="/edit/{{ review.category }}/{{ review.id }}">Edit</a>
+    <a class="btn" href="/delete/{{ review.category }}/{{ review.id }}">Delete</a>
 {% endif %}
 
 <p><a href="/reviews?category={{ review.category }}">Back to {{ review.category|capitalize }} Reviews</a></p>
