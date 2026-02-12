@@ -132,7 +132,7 @@ def reviews():
         filtered = [r for r in reviews_data if r["category"] == category]
     else:
         filtered = reviews_data
-    return render_template("review.html", reviews=filtered, category=category)
+    return render_template("reviews.html", reviews=filtered, category=category)
 
 @app.route("/review/<int:review_id>")
 def review_details(review_id):
