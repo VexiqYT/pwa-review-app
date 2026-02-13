@@ -109,8 +109,5 @@ The app remains installable and launchable
 When the connection returns, full functionality is restored automatically.
 
 Data Storage
-This version uses in‑memory storage, meaning:
-Data resets when the server restarts
-No SQL database is used
-This is intentional for the assessment
-A future version could use JSON or SQL for persistence.
+This version uses consistent, saved storage, meaning:
+Data should restore when the server restarts
